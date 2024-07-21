@@ -1,0 +1,50 @@
+<view>
+    <!-- 购物车列表结构 -->
+    <view wx:if="{{ cartList.length }}" class="container goods-wrap" bindtap="onSwipeCellPageTap">
+        <view class="goods-item" wx:for="{{ cartList }}" wx:key="index">
+            <van-swipe-cell data-id="{{item.goodsId}}" bind:open="openSwipe" bind:click="closeSwipe" id="swipe-{{item.goodsId}}" class="goods-swipe" right-width="{{ 65 }}">
+                <van-cell-group border="{{ false }}">
+                    <view class="goods-info">
+                        <view class="left">
+                            <van-checkbox bind:change="changeChekbox" checked-color="#FA4126" data-index="{{index}}" data-goodsid="{{item.goodsId}}" value="{{ item.isChecked }}"></van-checkbox>
+                        </view>
+                        <view class="mid">
+                            <image class="img" src="/assets/images/floor-img.jpg" />
+                        </view>
+                        <view class="right">
+                            <view class="title">
+                                {{item.name}}
+                            </view>
+                            <view class="buy">
+                                <view class="price">
+                                    <view class="symbol">¥</view>
+                                    <view class="num">{{item.price}}</view>
+                                </view>
+                                <view class="buy-btn">
+                                    <van-stepper value="{{ item.count }}" data-oldcount="{{item.count}}" data-goodsid="{{item.goodsId}}" data-index="{{index}}" bind:change="stepperChange" integer min="1" max="200" />
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </van-cell-group>
+                <view slot="right" class="van-swipe-cell__right" bind:tap="delGoods" data-id="{{item.goodsId}}">删除</view>
+            </van-swipe-cell>
+        </view>
+    </view>
+
+    <!-- 购物车列表为空展示的结构 -->
+    <van-empty wx:else description="{{ emptyDes }}">
+        <navigator url="/pages/index/index">
+            <van-button round type="danger" class="bottom-button">去购物</van-button>
+        </navigator>
+
+        <navigator url="/pages/login/login">
+            <van-button round type="danger" class="bottom-button">去登录</van-button>
+        </navigator>
+    </van-empty>
+
+    <!-- 底部工具栏 -->
+    <van-submit-bar wx:if="{{ cartList.length }}" price="{{ totalPrice * 100 }}" button-text="去结算" tip="{{ true }}" bind:submit="submit" bind:tap="closeSwipe">
+        <van-checkbox bind:change="CheckAll" data-index="{{index}}" value="{{ isAllChecked }}" checked-color="#FA4126"> 全选 </van-checkbox>
+    </van-submit-bar>
+</view>

@@ -1,0 +1,11 @@
+{
+  "description": "",
+  "dependencies": {
+    "@vant/weapp": "^1.11.6",
+    "async-validator": "^4.2.5",
+    "lodash": "^4.17.21",
+    "miniprogram-computed": "^5.0.0",
+    "mobx-miniprogram": "^6.12.3",
+    "mobx-miniprogram-bindings": "^3.0.0"
+  }
+}
